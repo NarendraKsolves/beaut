@@ -482,20 +482,24 @@ class ActionItemTile extends StatelessWidget {
 class HomeBottomNav extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onTap;
+  final VoidCallback? onOrbTap;
+  final bool isDark;
 
   const HomeBottomNav({
     super.key,
     required this.selectedIndex,
     required this.onTap,
+    this.onOrbTap,
+    this.isDark = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 100, // Increased height for better spacing
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.black.withOpacity(0.05))),
+        color: isDark ? Colors.transparent : Colors.white,
+        border: isDark ? null : Border(top: BorderSide(color: Colors.black.withOpacity(0.05))),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -516,25 +520,40 @@ class HomeBottomNav extends StatelessWidget {
       onTap: () => onTap(index),
       child: Icon(
         isSelected ? activeIcon : icon,
-        color: isSelected ? Colors.black : Colors.black45,
+        color: isSelected 
+          ? (isDark ? Colors.white : Colors.black) 
+          : (isDark ? Colors.white54 : Colors.black45),
         size: 26,
       ),
     );
   }
 
   Widget _buildCentralButton() {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFF008080), width: 4),
-      ),
-      child: const Center(
-        child: SizedBox(
-          width: 48,
-          height: 48,
-          child: OrbWidget(),
+    return GestureDetector(
+      onTap: onOrbTap,
+      child: Container(
+        width: 70,
+        height: 70,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: isDark ? const Color(0xFF14C8DA) : const Color(0xFF008080), 
+            width: 3,
+          ),
+          boxShadow: isDark ? [
+            BoxShadow(
+              color: const Color(0xFF14C8DA).withOpacity(0.3),
+              blurRadius: 15,
+              spreadRadius: 2,
+            )
+          ] : null,
+        ),
+        child: const Center(
+          child: SizedBox(
+            width: 56,
+            height: 56,
+            child: OrbWidget(),
+          ),
         ),
       ),
     );

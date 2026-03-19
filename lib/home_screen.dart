@@ -4,6 +4,7 @@ import 'package:beaut/trending_view.dart';
 import 'package:beaut/routine_view.dart';
 import 'package:beaut/scans_view.dart';
 import 'package:beaut/dashboard_screen.dart';
+import 'package:beaut/ai_assistant_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -79,6 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             _selectedNavIndex = index;
           });
+        },
+        onOrbTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AIAssistantScreen()),
+          );
         },
       ),
     );
