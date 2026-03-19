@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:beaut/experience_choice_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -270,7 +271,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: handle registration submission
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ExperienceChoiceScreen(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _primaryColor,
